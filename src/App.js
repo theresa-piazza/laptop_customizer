@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import './App.css';
 import Header from './Header';
-import ChooseFeatures from './ChooseFeatures';
-import Total from './Total';
+import Option from './Option';
+import LaptopOptionHeading from './LaptopOptionHeading'
 import Cart from './Cart';
+import ChosenLaptop from './ChosenLaptop'
+import Total from './Total';
+import './App.css';
+import slugify from 'slugify';
 
 
 class App extends Component {
@@ -27,23 +30,67 @@ class App extends Component {
       }
     }
   };
-    render () {
-    
+  updateFeature = (feature, newValue) => {
+    const selected = Object.assign({}, this.state.selected);
+    selected[feature] = newValue;
+    this.setState({
+      selected
+    });
+  };
+  render() {
+    const summary = Object.keys(this.state.selected).map((feature, idx) => {
+      const featureHash = feature + '-' + idx;
+      const selectedOption = this.state.selected[feature];
+      return (
+        <ChosenLaptop 
+          featureHash={featureHash}
+          feature={feature}
+          selectedOption={selectedOption} />
+      )
+    });
+    const total = Object.keys(this.state.selected).reduce(
+      (acc, curr) => acc + this.state.selected[curr].cost,
+      0
+    );
     return (
       <div className="App">
         <Header />
         <main>
-          <ChooseFeatures />
+          <form className="main__form">
+            <h2>Customize your laptop</h2>
+            { 
+              Object.keys(this.props.features).map((feature, idx) => {
+                const featureHash = feature + '-' + idx;
+                return (
+                  <fieldset className="feature" key={featureHash}>
+                    <LaptopOptionHeading
+                      feature={feature} />
+                    {
+                      this.props.features[feature].map(item => {
+                        const itemHash = slugify(JSON.stringify(item));
+                        return ( <Option 
+                                    itemHash={itemHash}
+                                    item={item}
+                                    selected={this.state.selected}
+                                    feature={feature} 
+                                    updateFeature={this.updateFeature}/>);
+                        })
+                    }
+                  </fieldset>
+                );
+              })
+            }
+          </form>
           <section className="main__summary">
-           <Cart />
-           <h2>Your cart</h2>
-            {summary}
-           <Total />
+          <Cart 
+            summary={summary} />
+            <Total
+              total={total} />
+
           </section>
         </main>
       </div>
     );
   }
 }
-
 export default App;

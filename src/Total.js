@@ -1,25 +1,18 @@
 import React from 'react';
-import './App.css'
 
-export default class Total extends React.Component {
-    render () {
-        const USCurrencyFormat = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD'
-          });
-        const total = Object.keys(this.state.selected).reduce(
-        (acc, curr) => acc + this.state.selected[curr].cost,
-        0
-        );
+const USCurrencyFormat = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
+  });
+
+export default function Total ( props ) {
     return (
-        <div className="summary__total">
-            <div className="summary__total__label">
-                Total
-            </div>
-                <div className="summary__total__value">
-                    {USCurrencyFormat.format(total)}
-                </div>
-        </div>
+        <>
+        <div className="summary__total"></div>  
+            <div className="summary__total__label">Total</div>
+            <div className="summary__total__value">
+            {USCurrencyFormat.format(props.total)}
+        </div> 
+        </>
     )
-  }
 }
