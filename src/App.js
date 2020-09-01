@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import Header from './Header';
-import Option from './Option';
-import LaptopOptionHeading from './LaptopOptionHeading';
 import MainSummary from './MainSummary';
 import ChosenLaptop from './ChosenLaptop';
-import Cart from './Cart';
-import Total from './Total';
+import MainForm from './MainForm';
+//import features from '/.features';
 import './App.css';
-import slugify from 'slugify';
+
 
 
 class App extends Component {
@@ -46,7 +44,8 @@ class App extends Component {
         <ChosenLaptop 
           featureHash={featureHash}
           feature={feature}
-          selectedOption={selectedOption} />
+          selectedOption={selectedOption} 
+          key={idx}/>
       )
     });
     const total = Object.keys(this.state.selected).reduce(
@@ -57,32 +56,17 @@ class App extends Component {
       <div className="App">
         <Header />
         <main>
-          <form className="main__form">
-            <h2>Customize your laptop</h2>
-            { 
-              Object.keys(this.props.features).map((feature, idx) => {
-                const featureHash = feature + '-' + idx;
-                return (
-                  <fieldset className="feature" key={featureHash}>
-                    <LaptopOptionHeading
-                      feature={feature} />
-                    {
-                      this.props.features[feature].map(item => {
-                        const itemHash = slugify(JSON.stringify(item));
-                        return ( <Option 
-                                    itemHash={itemHash}
-                                    item={item}
-                                    selected={this.state.selected}
-                                    feature={feature} 
-                                    updateFeature={this.updateFeature}/>);
-                        })
-                    }
-                  </fieldset>
-                );
-              })
-            }
-          </form>
-          <MainSummary />
+          <MainForm 
+            featureHash={this.featureHash}
+            feature={this.feature}
+            itemHash={this.itemHash}
+            item={this.item}
+            selected={this.state.selected}
+            updateFeature={this.updateFeature}
+            key={this.idx} />
+          <MainSummary 
+            summary={summary}
+            total={total} />
         </main>
       </div>
     );

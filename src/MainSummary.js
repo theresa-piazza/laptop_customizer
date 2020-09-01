@@ -3,6 +3,7 @@ import Cart from './Cart';
 import Total from './Total';
 
 export default function MainSummary (props) {
+    
     return (
     <section className="main__summary">
         <Cart 
