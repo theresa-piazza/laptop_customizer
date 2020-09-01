@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Option from './Option';
-import LaptopOptionHeading from './LaptopOptionHeading'
+import LaptopOptionHeading from './LaptopOptionHeading';
+import MainSummary from './MainSummary';
+import ChosenLaptop from './ChosenLaptop';
 import Cart from './Cart';
-import ChosenLaptop from './ChosenLaptop'
 import Total from './Total';
 import './App.css';
 import slugify from 'slugify';
@@ -81,13 +82,7 @@ class App extends Component {
               })
             }
           </form>
-          <section className="main__summary">
-          <Cart 
-            summary={summary} />
-            <Total
-              total={total} />
-
-          </section>
+          <MainSummary />
         </main>
       </div>
     );
