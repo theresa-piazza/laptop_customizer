@@ -4,7 +4,13 @@ import Option from './Option';
 import slugify from 'slugify';
 
 
-export default function MainForm ( props ) {
+export default class MainForm extends React.Component ( this.props ) {
+    constructor(props) {
+        super(props)
+        this.handleChange = this.handleChange.bind(this);
+    }
+    render () {
+
     return (
         <form className="main__form">
         <h2>Customize your laptop</h2>
@@ -12,19 +18,19 @@ export default function MainForm ( props ) {
           Object.keys(this.props.features).map((feature, idx) => {
             const featureHash = feature + '-' + idx;
             return (
-              <fieldset className="feature" key={props.featureHash}>
+              <fieldset className="feature" key={this.props.featureHash}>
                 <LaptopOptionHeading
-                  feature={props.feature} />
+                  feature={this.props.feature} />
                 {
                   this.props.features[feature].map((item, idx) => {
                     const itemHash = slugify(JSON.stringify(item));
                     return ( <Option 
-                                itemHash={props.itemHash}
-                                item={props.item}
-                                selected={props.this.state.selected}
-                                feature={props.feature} 
-                                updateFeature={props.this.updateFeature}
-                                key={props.idx}/>);
+                                itemHash={this.props.itemHash}
+                                item={this.props.item}
+                                selected={this.props.this.state.selected}
+                                feature={this.props.feature} 
+                                updateFeature={this.props.this.updateFeature}
+                                key={this.props.idx}/>);
                     })
                 }
               </fieldset>
@@ -33,4 +39,5 @@ export default function MainForm ( props ) {
         }
       </form>
     )
+    }
 }
