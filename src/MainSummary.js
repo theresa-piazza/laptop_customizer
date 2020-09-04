@@ -3,13 +3,12 @@ import Cart from './Cart';
 import Total from './Total';
 
 export default function MainSummary (props) {
-    
     return (
     <section className="main__summary">
         <Cart 
-            summary={props.summary} />
+            selected={props.selected} />
         <Total
-            total={props.total} />
+            selected={props.selected} />
 
     </section>
     )

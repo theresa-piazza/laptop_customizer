@@ -1,15 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Header from './Header';
 import MainSummary from './MainSummary';
-import ChosenLaptop from './ChosenLaptop';
-import features from './features';
 import './App.css';
 import MainForm from './MainForm';
 
 
-
-
-class App extends React.Component {
+class App extends Component {
   state = {
     selected: {
       Processor: {
@@ -38,46 +34,15 @@ class App extends React.Component {
     });
   };
   render() {
-    const summary = Object.keys(this.state.selected).map((feature, idx) => {
-      const featureHash = feature + '-' + idx;
-      const selectedOption = this.state.selected[feature];
-      return (
-        <ChosenLaptop 
-          featureHash={featureHash}
-          feature={feature}
-          selectedOption={selectedOption} 
-          key={idx}/>
-      )
-    });
-    const total = Object.keys(this.state.selected).reduce(
-      (acc, curr) => acc + this.state.selected[curr].cost,
-      0
-    );
     return (
       <div className="App">
         <Header />
         <main>
-        <form className="main__form">
-        <h2>Customize your laptop</h2>
-        { 
-          Object.keys(this.props.features).map((feature, idx) => {
-            const featureHash = feature + '-' + idx;
-            return (
-              <MainForm 
-              featureHash={this.featureHash}
-              feature={this.feature}
-              itemHash={this.itemHash}
-              item={this.item}
-              selected={this.state.selected}
-              updateFeature={this.updateFeature}
-              key={this.idx} />
-            );
-          })
-        }
-      </form>
+          <MainForm 
+            selected={this.state.selected} 
+            updateFeature={this.updateFeature}/>
           <MainSummary 
-            summary={summary}
-            total={total} />
+            selected={this.state.selected}/>
         </main>
       </div>
     );

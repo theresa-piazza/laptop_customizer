@@ -5,7 +5,7 @@ const USCurrencyFormat = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD'
 });
-function Option (props) {
+function Feature (props) {
         return(
             <div key={props.itemHash} className="feature__item">
                 <input
@@ -22,4 +22,4 @@ function Option (props) {
             </div>
         );
 }
-export default Option;
+export default Feature;
