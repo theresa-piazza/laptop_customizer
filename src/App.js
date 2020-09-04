@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Header from './Header';
 import MainSummary from './MainSummary';
 import ChosenLaptop from './ChosenLaptop';
-import MainForm from './MainForm';
-//import features from '/.features';
+import features from './features';
 import './App.css';
+import MainForm from './MainForm';
 
 
 
-class App extends Component {
+
+class App extends React.Component {
   state = {
     selected: {
       Processor: {
@@ -56,14 +57,24 @@ class App extends Component {
       <div className="App">
         <Header />
         <main>
-          <MainForm 
-            featureHash={this.featureHash}
-            feature={this.feature}
-            itemHash={this.itemHash}
-            item={this.item}
-            selected={this.state.selected}
-            updateFeature={this.updateFeature}
-            key={this.idx} />
+        <form className="main__form">
+        <h2>Customize your laptop</h2>
+        { 
+          Object.keys(this.props.features).map((feature, idx) => {
+            const featureHash = feature + '-' + idx;
+            return (
+              <MainForm 
+              featureHash={this.featureHash}
+              feature={this.feature}
+              itemHash={this.itemHash}
+              item={this.item}
+              selected={this.state.selected}
+              updateFeature={this.updateFeature}
+              key={this.idx} />
+            );
+          })
+        }
+      </form>
           <MainSummary 
             summary={summary}
             total={total} />

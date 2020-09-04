@@ -2,9 +2,10 @@ import React from 'react';
 import LaptopOptionHeading from './LaptopOptionHeading';
 import Option from './Option';
 import slugify from 'slugify';
+import features from './features';
 
 
-export default class MainForm extends React.Component ( this.props ) {
+export default class MainForm extends React.Component ( ) {
     constructor(props) {
         super(props)
         this.handleChange = this.handleChange.bind(this);

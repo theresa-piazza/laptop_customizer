@@ -1,4 +1,8 @@
-const features = {
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+
+export const features = {
     Processor: [
       {
         name: '17th Generation Intel Core HB (7 Core with donut spare)',
@@ -41,4 +45,4 @@ const features = {
     ]
   };
 
-  export default features;
+  
